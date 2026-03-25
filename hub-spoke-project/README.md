@@ -1,7 +1,7 @@
 # Azure Hub-and-Spoke Network Architecture
 ### Infrastructure as Code with Terraform
 
-This project deploys a production-style hub-and-spoke network topology on Microsoft Azure using Terraform. It is part of a personal lab series built to develop hands-on skills toward a career in Azure Infrastructure Administration.
+This project deploys a production-style hub-and-spoke network topology on Microsoft Azure using Terraform. It is part of a personal lab series built to develop & hone hands-on skills towards Azure IaC Administration.
 
 ---
 
