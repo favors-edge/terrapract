@@ -155,7 +155,7 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
   location            = var.location
   size                = "Standard_B1s"
   admin_username      = var.admin_username
-  admin_password      = "Password1234!"
+  admin_password      = var.admin_password
 
   disable_password_authentication = false
   network_interface_ids           = [azurerm_network_interface.web_nic.id]
