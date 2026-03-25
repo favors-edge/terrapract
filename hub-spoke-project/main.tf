@@ -189,3 +189,18 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type      = "LRS"
   public_network_access_enabled = false
 }
+
+# Create Private endpoint
+resource "azurerm_private_endpoint" "storage_pe" {
+  name                = "pe-storage"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.storage_subnet.id
+
+  private_service_connection {
+    name                           = "psc-storage"
+    private_connection_resource_id = azurerm_storage_account.storage.id
+    subresource_names              = ["blob"]
+    is_manual_connection           = false
+  }
+}
