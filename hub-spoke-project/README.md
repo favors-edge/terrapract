@@ -110,7 +110,7 @@ After deployment, Terraform will print the storage account name and the VM's pri
 
 ## Cost Management
 
-This lab is designed to stay within Azure free tier limits where possible. The only billable resource when running is the VM.
+This lab is designed to stay within Azure free tier limits where possible. I really didn't want to run up an insane bill just to get hands on practice. The only billable resource when running is the VM.
 
 | Resource | Estimated cost |
 |---|---|
@@ -152,7 +152,7 @@ terraform destroy
 
 ---
 
-## Roadmap
+## Roadmap - Future Additions
 
 - [ ] Add Azure Key Vault integration for secret management
 - [ ] Deploy Azure Firewall in the hub for centralized traffic inspection
@@ -163,6 +163,6 @@ terraform destroy
 
 ## Author
 
-Built by **[Your Name]** as part of a self-directed Azure Infrastructure Administration lab series.
+Built by **[Peter Inneh]** as part of a self-directed Azure Infrastructure Administration lab series.
 
-[LinkedIn](https://linkedin.com/in/YOUR_PROFILE) · [GitHub](https://github.com/YOUR_USERNAME)
+[LinkedIn](www.linkedin.com/in/peter-inneh) · [GitHub](https://github.com/favors-edge)
