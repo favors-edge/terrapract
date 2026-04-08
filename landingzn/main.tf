@@ -31,7 +31,7 @@ resource "azurerm_management_group" "landing_zones" {
 
 # Create Landing Zone children
 
-resource "azurerm_management_group" "dev {
+resource "azurerm_management_group" "dev" {
     display_name = "Dev"
     parent_management_group_id = azurerm_management_group.landing_zones.id
 }
@@ -63,7 +63,7 @@ resource "azurerm_policy_definition" "allowed_locations" {
     })
 }
 
-resource "azurerm_management_group_policy_asignment" "location_assignment" {
+resource "azurerm_management_group_policy_assignment" "location_assignment" {
     name = "restrict-locations"
     parent_management_group_id = azurerm_management_group.landing_zones.id
     policy_definition_id = azurerm_policy_definition.allowed_locations.id
