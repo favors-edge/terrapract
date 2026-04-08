@@ -125,5 +125,5 @@ data "azurerm_subscription" "current" {}
 
 resource "azurerm_management_group_subscription_association" "dev_sub" {
   management_group_id = azurerm_management_group.landing_zones.id
-  subscription_id     = data.azurerm_subscription.current.subscription_id
+  id     = data.azurerm_subscription.current.subscription_id
 }
