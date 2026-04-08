@@ -15,7 +15,19 @@ variable "default_tags" {
     type = map(string)
     default = {
         Environment = "dev"
-        Owner = "
-
+        Owner = "favors-edge"
+        CostCenter = "terrapract-project"
+        ManagedBy = "Terraform"
     }
+}
+
+# Object IDs for RBAC asignments
+variable "dev_reader_object_id" {
+  description = "Object ID of user/group to assign Dev Reader role"
+  type        = string
+}
+
+variable "dev_contributor_object_id" {
+  description = "Object ID of user/group to assign Dev Contributor role"
+  type        = string
 }
