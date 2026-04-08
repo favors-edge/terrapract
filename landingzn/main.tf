@@ -72,3 +72,47 @@ resource "azurerm_management_group_policy_asignment" "location_assignment" {
 }
 
 # Policy: Require Environment tag
+
+resource "azurerm_policy_definition" "require_env_tag" {
+  name         = "require-environment-tag"
+  policy_type  = "Custom"
+  mode         = "Indexed"
+  display_name = "Require Environment tag"
+  description  = "Denies creation of resources missing the Environment tag."
+
+  policy_rule = jsonencode({
+    "if" = {
+      "field"  = "tags['Environment']"
+      "exists" = "false"
+    },
+    "then" = {
+      "effect" = "deny"
+    }
+  })
+}
+
+resource "azurerm_management_group_policy_assignment" "tag_assignment" {
+  name                 = "require-env-tag"
+  management_group_id  = azurerm_management_group.landing_zones.id
+  policy_definition_id = azurerm_policy_definition.require_env_tag.id
+  display_name         = "Require Environment tag on all resources"
+}
+
+# Create RBAC
+
+# Reader on Dev: can view resources, cannot change anything
+resource "azurerm_role_assignment" "dev_reader" {
+  scope                = azurerm_management_group.dev.id
+  role_definition_name = "Reader"
+  principal_id         = var.dev_reader_object_id
+}
+
+# Contributor on Dev: can create/manage, cannot change access policies
+resource "azurerm_role_assignment" "dev_contributor" {
+  scope                = azurerm_management_group.dev.id
+  role_definition_name = "Contributor"
+  principal_id         = var.dev_contributor_object_id
+}
+
+# No Contributor on Prod is intentional.
+# Dev team members get read-only access to production.
