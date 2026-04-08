@@ -65,7 +65,7 @@ resource "azurerm_policy_definition" "allowed_locations" {
 
 resource "azurerm_management_group_policy_assignment" "location_assignment" {
     name = "restrict-locations"
-    parent_management_group_id = azurerm_management_group.landing_zones.id
+    management_group_id = azurerm_management_group.landing_zones.id
     policy_definition_id = azurerm_policy_definition.allowed_locations.id
     display_name = "Restrict to approved regions"
     description = "Applied to all Landing Zone subscriptions via inheritance."
