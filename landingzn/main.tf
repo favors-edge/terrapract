@@ -49,6 +49,7 @@ resource "azurerm_policy_definition" "allowed_locations" {
     mode = "All"
     display_name = "Allowed locations"
     description = "Restricts resource deployment to approved Azure regions only."
+    management_group_id = azurerm_management_group.landing_zones.id
 
     policy_rule = jsonencode({
         "if" = {
@@ -79,6 +80,7 @@ resource "azurerm_policy_definition" "require_env_tag" {
   mode         = "Indexed"
   display_name = "Require Environment tag"
   description  = "Denies creation of resources missing the Environment tag."
+  management_group_id = azurerm_management_group.landing_zones.id
 
   policy_rule = jsonencode({
     "if" = {
