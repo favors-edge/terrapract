@@ -1,3 +1,10 @@
+# Create Resource Group
+resource "azurerm_resource_group" "landing_dev" {
+    name = var.resource_group_name
+    location = var.location
+    tags = var.default_tags
+}
+
 # Create Platform Management Group (sits under Tenant Root)
 
 resource "azurerm_management_group" "platform" {
@@ -33,3 +40,35 @@ resource "azurerm_management_group" "prod" {
     display_name = "Prod"
     parent_management_group_id = azurerm_management_group.landing_zones.id
 }
+
+# Policy: Allowed Locations
+
+resource "azurerm_policy_definition" "allowed_locations" {
+    name = "allowed_locations"
+    policy_type = "Custom"
+    mode = "All"
+    display_name = "Allowed locations"
+    description = "Restricts resource deployment to approved Azure regions only."
+
+    policy_rule = jsonencode({
+        "if" = {
+            "not" = {
+                "field" = "location"
+                "in" = ["eastus", "eastus2"]
+            }
+        },
+        "then" = {
+            "effect" = "deny"
+        }
+    })
+}
+
+resource "azurerm_management_group_policy_asignment" "location_assignment" {
+    name = "restrict-locations"
+    parent_management_group_id = azurerm_management_group.landing_zones.id
+    policy_definition_id = azurerm_policy_definition.allowed_locations.id
+    display_name = "Restrict to approved regions"
+    description = "Applied to all Landing Zone subscriptions via inheritance."
+}
+
+# Policy: Require Environment tag

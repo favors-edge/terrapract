@@ -1,3 +1,5 @@
+# Every value that changes between environments or that you do not want hardcoded lives here
+
 variable "location" {
     description = "Azure region for all resources"
     type = string
